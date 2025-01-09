@@ -1,74 +1,102 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import React from 'react';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { Text, Card, Button } from 'react-native-paper';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
+  const featuredProducts = [
+    { id: 1, name: 'Product 1', price: 99.99, image: 'https://picsum.photos/200' },
+    { id: 2, name: 'Product 2', price: 149.99, image: 'https://picsum.photos/200' },
+    { id: 3, name: 'Product 3', price: 199.99, image: 'https://picsum.photos/200' },
+  ];
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <ScrollView style={styles.container}>
+      <Card style={styles.banner}>
+        <Card.Cover source={{ uri: 'https://picsum.photos/800/400' }} />
+        <Card.Content>
+          <Text variant="headlineMedium">Welcome to ShopEase</Text>
+          <Text variant="bodyMedium">Discover amazing products at great prices!</Text>
+        </Card.Content>
+      </Card>
+
+      <Text variant="titleLarge" style={styles.sectionTitle}>Featured Products</Text>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.productsScroll}>
+        {featuredProducts.map((product) => (
+          <Card key={product.id} style={styles.productCard}>
+            <Card.Cover source={{ uri: product.image }} />
+            <Card.Content>
+              <Text variant="titleMedium">{product.name}</Text>
+              <Text variant="bodyLarge">${product.price}</Text>
+            </Card.Content>
+            <Card.Actions>
+              <Link href={`/products/${product.id}`} asChild>
+                <Button mode="contained">View Details</Button>
+              </Link>
+            </Card.Actions>
+          </Card>
+        ))}
+      </ScrollView>
+
+      <View style={styles.categoriesSection}>
+        <Text variant="titleLarge" style={styles.sectionTitle}>Categories</Text>
+        <View style={styles.categoriesGrid}>
+          <Link href="/products?category=electronics" asChild>
+            <Card style={styles.categoryCard}>
+              <Card.Content>
+                <Text variant="titleMedium">Electronics</Text>
+              </Card.Content>
+            </Card>
+          </Link>
+          <Link href="/products?category=fashion" asChild>
+            <Card style={styles.categoryCard}>
+              <Card.Content>
+                <Text variant="titleMedium">Fashion</Text>
+              </Card.Content>
+            </Card>
+          </Link>
+          <Link href="/products?category=home" asChild>
+            <Card style={styles.categoryCard}>
+              <Card.Content>
+                <Text variant="titleMedium">Home</Text>
+              </Card.Content>
+            </Card>
+          </Link>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  banner: {
+    margin: 16,
+  },
+  sectionTitle: {
+    margin: 16,
+    fontWeight: 'bold',
+  },
+  productsScroll: {
+    paddingHorizontal: 8,
+  },
+  productCard: {
+    width: 200,
+    margin: 8,
+  },
+  categoriesSection: {
+    marginTop: 16,
+  },
+  categoriesGrid: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+    flexWrap: 'wrap',
+    padding: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  categoryCard: {
+    width: '45%',
+    margin: 8,
   },
 });

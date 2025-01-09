@@ -1,50 +1,93 @@
-# Welcome to your Expo app 👋
+# ShopEase - Cross-Platform E-commerce App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern e-commerce mobile application built with Expo CLI, featuring a beautiful UI and seamless shopping experience across iOS and Android platforms.
 
-## Get started
+## Features
+
+- Cross-platform compatibility (iOS & Android)
+- Beautiful and intuitive UI with React Native Paper
+- State management with Redux Toolkit
+- Shopping cart functionality
+- User authentication and profile management
+- Product catalog with search functionality
+- Automated deployment to App Store and Play Store using EAS
+
+## Getting Started
 
 1. Install dependencies
-
    ```bash
    npm install
    ```
 
-2. Start the app
-
+2. Start the development server
    ```bash
-    npx expo start
+   npm start
    ```
 
-In the output, you'll find options to open the app in a
+3. Run on specific platforms
+   ```bash
+   # For iOS
+   npm run ios
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+   # For Android
+   npm run android
+   ```
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Deployment
 
-## Get a fresh project
+### Prerequisites
 
-When you're ready, run:
+1. Set up your Expo account
+   ```bash
+   eas login
+   ```
 
-```bash
-npm run reset-project
+2. Configure your app
+   - Update `app.config.js` with your app details
+   - Update `eas.json` with your store credentials
+
+### Building for Stores
+
+1. Build for Android
+   ```bash
+   npm run build:android
+   ```
+
+2. Build for iOS
+   ```bash
+   npm run build:ios
+   ```
+
+### Submitting to Stores
+
+1. Submit to Play Store
+   ```bash
+   npm run submit:android
+   ```
+
+2. Submit to App Store
+   ```bash
+   npm run submit:ios
+   ```
+
+## Project Structure
+
+```
+expo-ecommerce-app/
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── screens/        # Screen components
+│   ├── store/          # Redux store and slices
+│   ├── services/       # API and other services
+│   └── utils/          # Utility functions
+├── assets/            # Images and other static assets
+├── app.config.js      # Expo configuration
+└── eas.json          # EAS Build configuration
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Learn More
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo Documentation](https://docs.expo.dev/)
+- [React Native Paper](https://callstack.github.io/react-native-paper/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [EAS Build](https://docs.expo.dev/build/introduction/)
